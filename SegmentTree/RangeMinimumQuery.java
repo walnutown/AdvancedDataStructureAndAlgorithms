@@ -32,6 +32,10 @@ int[][] process(int[] A){
 	return M;
 }
 
+// SOL3:
+// Use segment tree, see SegmentTreeImplementation.java
+// time: f(n) = O(n), g(n) = O(lgn); space: O(2*n-1)
+
 
 
 
