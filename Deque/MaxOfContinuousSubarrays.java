@@ -21,6 +21,7 @@ public class MaxOfContinuousSubarrays {
     */
    // Maintain a deque, which hold the index of elements in descending order
    // by peekFirst, we get max of the deque; by peekLast, we get min of deque
+   // time: O(n), each element is accessed at most twice; space: O(k)
    // refer http://www.geeksforgeeks.org/maximum-of-all-subarrays-of-size-k/
    public int[] getMaxs(int[] A, int k) {
       // add initial k values
