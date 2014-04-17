@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
@@ -8,41 +9,39 @@ import org.junit.Test;
 public class TopologicalSort {
    /*
     * Topological sorting for Directed Acyclic Graph (DAG) is a linear ordering of vertices such
-    * that for every directed edge uv, vertex u comes before v in the ordering. Topological Sorting
+    * that for every directed edge u-v, vertex u comes before v in the ordering. Topological Sorting
     * for a graph is not possible if the graph is not a DAG.
     */
 
-   // DFS + stack. 
-   // [1] Basically post-order DFS, use a stack here for easy reverse of the result 
+   // DFS + reverse. 
+   // [1] Basically post-order DFS, and then reverse the order of the result 
    // [2] Need to DFS starting from all the nodes in graph, in case the graph is disconnected
    // [3] Maintain a visited array to avoid revisiting.
-   // time: O(n); space: O(n)
+   // time: O(V+E); space: O(V)
    // refer: http://www.geeksforgeeks.org/topological-sorting/
    public ArrayList<Node> topologicalSort(Graph graph) {
-      Stack<Node> st = new Stack<Node>();
+      ArrayList<Node> res = new ArrayList<Node>();
       ArrayList<Node> nodes = graph.getNodeList();
       Set<Node> visited = new HashSet<Node>();
       for (Node node : nodes) {
          if (!visited.contains(node))
-            dfs(graph, node, st, visited);
+            dfs(graph, node, res, visited);
       }
-      ArrayList<Node> res = new ArrayList<Node>();
-      while (!st.isEmpty())
-         res.add(st.pop());
+      Collections.reverse(res);
       return res;
    }
 
-   private void dfs(Graph graph, Node node, Stack<Node> st, Set<Node> visited) {
+   private void dfs(Graph graph, Node node, ArrayList<Node> res, Set<Node> visited) {
       visited.add(node);
       ArrayList<Node> neighbors = graph.getNeighbors(node);
       if (!neighbors.isEmpty()) {
          for (Node adj : neighbors) {
             if (!visited.contains(adj)) {
-               dfs(graph, adj, st, visited);
+               dfs(graph, adj, res, visited);
             }
          }
       }
-      st.push(node);
+      res.add(node);
    }
 
    @Test

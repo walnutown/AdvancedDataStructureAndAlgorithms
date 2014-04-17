@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 /*
  * Graph Implementation
+ * Use adjacency matrix as graph representation
  */
 public class Graph {
    Node root = null;
